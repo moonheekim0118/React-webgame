@@ -1,0 +1,56 @@
+
+<html>
+    <head>
+        <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+        <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+        <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    </head>
+    <body>
+        <div id="root"></div>
+        <script type="text/babel">
+        const GuguDan = ()=>{
+            const [num1, setNum1] = React.useState(Math.ceil(Math.random()*9));
+            const [num2, setNum2] = React.useState(Math.ceil(Math.random()*9));
+            const [value, setValue]= React.useState('');
+            const [result,setResult]=React.useState('');
+            const inputRef = React.useRef();
+
+            const onChangeInput = (e) =>{
+                setValue(e.target.value);
+            }
+            
+            const init =()=>{
+                setValue('');
+                setNum1(Math.ceil(Math.random()*9));
+                setNum2(Math.ceil(Math.random()*9));
+                inputRef.current.focus();
+            }
+            const onSubmitForm=(e)=>{
+                e.preventDefault();
+                if(parseInt(value) === num1* num2){
+                    setResult('정답입니다.');
+                }
+                else{
+                    setResult('오답입니다.');
+                }
+                init();
+                
+            }
+            console.log('렌더~'); 
+            return(
+                <React.Fragment>
+            <div>{num1}곱하기{num2}는~?</div>
+            <form onSubmit={onSubmitForm}>
+                <input ref={inputRef} type="number" value={value} onChange={onChangeInput}/>
+                <button type="submit">입력</button>
+            </form>
+            <div>{result}</div>
+            </React.Fragment>)
+        }
+        </script>
+        <script  type="text/babel">
+            //e(LikeButton)
+            ReactDOM.render(< GuguDan />,document.querySelector('#root')); //실제로 돔에다가 붙이겠다~
+        </script>
+    </body>
+    </html>
